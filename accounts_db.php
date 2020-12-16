@@ -1,48 +1,33 @@
 <?php
 
-require('pdo.php'); 
-
-$firstName = filter_input(INPUT_POST, 'fName');
-$lastName = filter_input(INPUT_POST, 'lName');
-$birthday = filter_input(INPUT_POST, 'birthday');
-$email = filter_input(INPUT_POST, 'email');
-$password = filter_input(INPUT_POST, 'password');
-
-
-
-$query = 'INSERT INTO accounts (email, fname, lname, birthday, password) VALUES (:email, :fname, :lname, :birthday, :password)';
-
+function validate_login($email, $password) {
+	global $db;
+	$query = 'SELECT * FROM accounts WHERE email = :email AND password = :password';
 	$statement = $db->prepare($query);
-
-	$statement->bindValue(':fname', $firstName);
-	$statement->bindValue(':lname', $lastName);
-	$statement->bindValue(':birthday', $birthday);
 	$statement->bindValue(':email', $email);
 	$statement->bindValue(':password', $password);
 	$statement->execute();
+	$user = $statement->fetch();
 
 	$statement->closeCursor();
-if(isset($_POST['submit'])){
 
-	if (empty($_POST["birthday"])) {
-	    $nameErr = "<p class='error'>Birthday is required </p><br>";
-	      echo $nameErr ;
-	    }
+	if(count($user) > 0){
+		return $user['id'];
+	}else{
+		return false;
+	}
 
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-	    echo(" <p class='error'>Email is invalid </p><br> ");
-	  } else { 
-	    echo (" ");
-	  }
+} 
+function get_user($userId) {
+	global $db;
+	$query = 'SELECT * FROM accounts WHERE id = :userId';
 
-	if (empty($_POST["password"])) {
-	    $nameErr = "<p class='error'>Password is required. </p> ";
-	      echo $nameErr ;
-	    }
-	if(strlen($password) < 8) {
-	    echo ("<p class='error'>Password should be at least 8 characters in length. </p> ");}
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userId', $userId);
+	$statement->execute();
+	$user = $statement->fetch();
+
+	$statement->closeCursor();
+
 }
-include('login.php');
-
-	
 ?>
