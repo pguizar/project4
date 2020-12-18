@@ -18,20 +18,19 @@ switch ($action) {
     case 'validate_login': {
         $email = filter_input(INPUT_POST, 'email');
         $password = filter_input(INPUT_POST, 'password');
-        if ($email == NULL || $password == NULL){
-            echo 'Email and password not included';
-        } 
-        else {
-            $userId = validate_login($email, $password);
+        if ($email == NULL || $password == NULL) {
+            $error = 'Email and Password not included';
+            include('error.php');
+        } else {
+            $user = AccountsDB::validate_login($email, $password);
+            $userId = $user->getId();
             if ($userId == false) {
-                //echo "Invalid login";
-                header('Location: index.php?action=display_registration.php');
-            } 
-            else {
-                //echo "Valid login";
+                header('Location: index.php?action=display_registration');
+            } else {
                 header("Location: .?action=display_questions&userId=$userId");
-            }   
+            }
         }
+
         break;
     }
     case 'display_registration': {
