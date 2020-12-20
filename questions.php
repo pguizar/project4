@@ -15,7 +15,7 @@ class Questions {
 		return $this->ownerid;
 	}
 	public function setId($ownerid) {
-		$this->id = $ownerid;
+		$this->ownerid = $ownerid;
 	}
 
 		public function getTitle(){
