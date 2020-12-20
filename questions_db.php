@@ -14,12 +14,12 @@ class QuestionsDB {
 	//
 	$questionObjs = array();
 	foreach ($questions as $question) {
-		$questions = new Questions($questions['ownerid'], $questions['title'], $questions['body'], $questions['skills']);
-		array_push($questionObjs, $question)
+		$question = new Questions($question['ownerid'], $question['title'], $question['body'], $question['skills']);
+		array_push($questionObjs, $question);
 	}
 
 
-	return $questions;
+	return $questionObjs;
 	}
 
 
