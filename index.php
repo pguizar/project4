@@ -23,7 +23,7 @@ switch ($action) {
         if ($email == NULL || $password == NULL){
             echo 'Email and password not included';
         } else {
-            $user = AccountDB::validate_login($email, $password);
+            $user = AccountsDB::validate_login($email, $password);
             $userId = $user->getId();
             if ($userId == false) {
                 header('Location: index.php?action=display_registration.php');
