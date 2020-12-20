@@ -8,6 +8,7 @@ class Questions {
 		$this->title = $title;
 		$this->body = $body;
 		$this->skills = $skills;
+		$this->id = $id;
 
 	}
 		public function getId(){
@@ -20,7 +21,7 @@ class Questions {
 	public function getOwnerid(){
 		return $this->ownerid;
 	}
-	public function setId($ownerid) {
+	public function setOwnerid($ownerid) {
 		$this->ownerid = $ownerid;
 	}
 
