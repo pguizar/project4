@@ -1,14 +1,20 @@
 <?php
 
 class Questions {
-	private $ownerid, $title, $body, $skills;
+	private $ownerid, $title, $body, $skills, $id;
 
-	public function __construct($ownerid, $title, $body, $skills){
+	public function __construct($ownerid, $title, $body, $skills, $id){
 		$this->ownerid= $ownerid;
 		$this->title = $title;
 		$this->body = $body;
 		$this->skills = $skills;
 
+	}
+		public function getId(){
+		return $this->id;
+	}
+	public function setId($id) {
+		$this->id = $id;
 	}
 
 	public function getOwnerid(){
@@ -38,6 +44,7 @@ class Questions {
 	public function setSkills($skills) {
 		$this->skills = $skills;
 	}
+
 }
 
 ?>
