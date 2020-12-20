@@ -18,6 +18,7 @@ class AccountDB {
         return false;
     }
 }
+}
 /*function validate_login($email, $password) {
     global $db;
     $query = 'SELECT * FROM accounts WHERE email = :email AND password = :password';
