@@ -22,13 +22,13 @@
   			<tr>
   				<td><?php echo $question->getTitle(); ?></td>
   				<td><?php echo $question->getBody(); ?></td>
-          <td><?php echo $question[->getSkills(); ?></td>
+          <td><?php echo $question->getSkills(); ?></td>
           <td>
             <form action="." method="post">
               <input type="hidden" name="action" value="delete_question">
 
 
-              <input type="hidden" name="questionId" value="<?php echo $question['id']; ?>">
+              <input type="hidden" name="questionId" value="<?php $question->getId(); ?>">
               <input type="hidden" name="userId" value="<?php echo $userId; ?>">
 
               <input type="submit" value="Delete">
