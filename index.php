@@ -23,7 +23,7 @@ switch ($action) {
         if ($email == NULL || $password == NULL){
             echo 'Email and password not included';
         } else {
-            $user = AccountsDB::validate_login($email, $password);
+            $user = AccountDB::validate_login($email, $password);
             $userId = $user->getId();
             if ($userId == false) {
                 header('Location: index.php?action=display_registration.php');
@@ -51,6 +51,7 @@ switch ($action) {
         else 
         {
             $questions = QuestionsDB::get_users_questions($userId);
+            print_r($questions);
             //??? v
             $questions = ($listType === 'all') ? QuestionsDB::get_all_questions() : QuestionsDB::get_users_questions($userId);
             include('display_questions.php');
