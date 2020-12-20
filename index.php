@@ -1,5 +1,7 @@
 <?php
 require('pdo.php');
+require('account.php');
+require('questions.php');
 require('accounts_db.php');
 require('questions_db.php');
 
@@ -18,19 +20,19 @@ switch ($action) {
     case 'validate_login': {
         $email = filter_input(INPUT_POST, 'email');
         $password = filter_input(INPUT_POST, 'password');
-        if ($email == NULL || $password == NULL) {
-            $error = 'Email and Password not included';
-            include('error.php');
+        if ($email == NULL || $password == NULL){
+            echo 'Email and password not included';
         } else {
             $user = AccountsDB::validate_login($email, $password);
             $userId = $user->getId();
             if ($userId == false) {
-                header('Location: index.php?action=display_registration');
-            } else {
+                header('Location: index.php?action=display_registration.php');
+            } 
+            else {
+                //echo "Valid login";
                 header("Location: .?action=display_questions&userId=$userId");
-            }
+            }   
         }
-
         break;
     }
     case 'display_registration': {
@@ -48,8 +50,9 @@ switch ($action) {
         } 
         else 
         {
-            $questions = get_users_questions($userId);
-            $questions = ($listType === 'all') ? get_all_questions() : get_users_questions($userId);
+            $questions = QuestionsDB::get_users_questions($userId);
+            //??? v
+            $questions = ($listType === 'all') ? QuestionsDB::get_all_questions() : QuestionsDB::get_users_questions($userId);
             include('display_questions.php');
         }
         break;
@@ -79,7 +82,7 @@ switch ($action) {
         }
         else
         {
-            create_question($title, $body, $skills, $userId);
+            QuestionsDB::create_question($title, $body, $skills, $userId);
             header("Location: .?action=display_questions&userId=$userId");
         }
         break;
@@ -92,7 +95,7 @@ switch ($action) {
             echo 'All Fields are required';
         }
         else {
-            delete_question($questionId);
+            QuestionsDB::delete_question($questionId);
             header("Location: .?action=display_questions&userId=$userId");
         }
         break;
