@@ -20,14 +20,14 @@ class Account {
 		$this->id = $id;
 	}
 
-	public function getEmail(){
+		public function getEmail(){
 		return $this->email;
 	}
 	public function setEmail($email) {
 		$this->email = $email;
 	}
 
-	public function getFname(){
+		public function getFname(){
 		return $this->fname;
 	}
 	public function setFname($fname) {
@@ -40,13 +40,13 @@ class Account {
 	public function setLname($lname) {
 		$this->lname = $lname;
 	}
-	public function getBirthday(){
+		public function getBirthday(){
 		return $this->birthday;
 	}
 	public function setBirthday($birthday) {
 		$this->birthday = $birthday;
 	}
-	public function getPassword(){
+		public function getPassword(){
 		return $this->password;
 	}
 	public function setPassword($password) {
@@ -54,3 +54,4 @@ class Account {
 	}
 }
 
+?>
