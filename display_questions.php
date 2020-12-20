@@ -20,9 +20,9 @@
   		</tr>
   		<?php foreach ($questions as $question) : ?>
   			<tr>
-  				<td><?php echo $question['title']; ?></td>
-  				<td><?php echo $question['body']; ?></td>
-          <td><?php echo $question['skills']; ?></td>
+  				<td><?php echo $question->getTitle(); ?></td>
+  				<td><?php echo $question->getBody(); ?></td>
+          <td><?php echo $question[->getSkills(); ?></td>
           <td>
             <form action="." method="post">
               <input type="hidden" name="action" value="delete_question">
