@@ -12,7 +12,12 @@ class QuestionsDB {
 	$statement->closeCursor();
 
 	//
-	$questions = new Questions($questions['ownerid'], $questions['title'], $questions['body'], $questions['skills']);
+	$questionObjs = array();
+	foreach ($questions as $question) {
+		$questions = new Questions($questions['ownerid'], $questions['title'], $questions['body'], $questions['skills']);
+		array_push($questionObjs, $question)
+	}
+
 
 	return $questions;
 	}
@@ -48,7 +53,6 @@ class QuestionsDB {
 	$statement->closeCursor();
 
 	}
-	
 	function delete_question ($questionId) {
 	global $db;
 
