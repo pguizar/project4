@@ -14,7 +14,7 @@ class QuestionsDB {
 	//
 	$questionObjs = array();
 	foreach ($questions as $question) {
-		$question = new Questions($question['ownerid'], $question['title'], $question['body'], $question['skills']);
+		$question = new Questions($question['ownerid'], $question['title'], $question['body'], $question['skills'], $question['id']);
 		array_push($questionObjs, $question);
 	}
 
@@ -34,9 +34,14 @@ class QuestionsDB {
 	$statement->closeCursor();
 
 	//
-	$questions = new Questions($questions['ownerid'], $questions['title'], $questions['body'], $questions['skills']);
+	$questionObjs = array();
+	foreach ($questions as $question) {
+		$question = new Questions($question['ownerid'], $question['title'], $question['body'], $question['skills'], $question['id']);
+		array_push($questionObjs, $question);
+	}
 
-	return $questions;
+
+	return $questionObjs;
 
 	}
 
