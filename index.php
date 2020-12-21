@@ -51,7 +51,7 @@ switch ($action) {
         else 
         {
             $questions = QuestionsDB::get_users_questions($userId);
-            print_r($questions);
+            
             //??? v
             $questions = ($listType === 'all') ? QuestionsDB::get_all_questions() : QuestionsDB::get_users_questions($userId);
             include('display_questions.php');
