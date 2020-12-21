@@ -5,6 +5,9 @@ require('questions.php');
 require('accounts_db.php');
 require('questions_db.php');
 
+
+session_start();
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -14,7 +17,11 @@ if ($action == NULL) {
 }
 switch ($action) {
     case 'show_login': {
+        if($_SESSION['userId']) {
+            header('Location: .?action=display_questions');
+        } else {
         include('login.php');
+    }
         break;
     }
     case 'validate_login': {
@@ -30,7 +37,8 @@ switch ($action) {
             } 
             else {
                 //echo "Valid login";
-                header("Location: .?action=display_questions&userId=$userId");
+                $_SESSION['userId'] = $userId;
+                header("Location: .?action=display_questions");
             }   
         }
         break;
@@ -43,7 +51,7 @@ switch ($action) {
 
     }
     case 'display_questions': {
-        $userId = filter_input(INPUT_GET, 'userId');
+        $userId = $_SESSION['userId'];
         $listType = filter_input(INPUT_GET, 'listType');
         if ($userId == NULL || $userId < 0) {
             header('Location: .?action=display_login');
@@ -84,7 +92,7 @@ switch ($action) {
         else
         {
             QuestionsDB::create_question($title, $body, $skills, $userId);
-            header("Location: .?action=display_questions&userId=$userId");
+            header("Location: .?action=display_questions");
         }
         break;
 
@@ -97,8 +105,21 @@ switch ($action) {
         }
         else {
             QuestionsDB::delete_question($questionId);
-            header("Location: .?action=display_questions&userId=$userId");
+            header("Location: .?action=display_questions");
         }
+        break;
+    }
+    case 'logout' : {
+        session_destroy();
+        $_SESSION = array();
+        $name = session_name();
+        $expire = strtotime('-1 year');
+
+        $params = session_get_cookie_params();
+
+        setcookie($name, '', $expire, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+
+        header('Location: index.php');
         break;
     }
     } 
